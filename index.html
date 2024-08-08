@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moneda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0df594, #f3b121, #FF5722);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+
+        .converter {
+            margin-bottom: 20px;
+        }
+
+        .converter label {
+            margin-right: 10px;
+        }
+
+        .converter input, .converter select {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .converter button {
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .results p {
+            margin: 10px 0;
+        }
+
+        .media-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .media {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            width: 200px; 
+        }
+
+        .flag-container {
+            margin-top: 10px;
+        }
+
+        .flag-container img {
+            width: 60px;
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        .greeting {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="greeting" id="greeting"></div>
+    
+    <div class="container">
+        <h1>Conversor de Moneda</h1>
+
+        <div class="converter">
+            <label for="amount">Cantidad:</label>
+            <input type="number" id="amount" placeholder="Ingresa un valor">
+            
+            <label for="currency">Moneda de origen:</label>
+            <select id="currency">
+                <option value="USD">Dólar</option>
+                <option value="GTQ">Quetzal</option>
+                <option value="EUR">Euro</option>
+                <option value="MXN">Peso Mexicano</option>
+            </select>
+
+            <button onclick="convert()">Convertir</button>
+        </div>
+
+        <div class="results">
+            <h2>Resultados:</h2>
+            <p>Dólares: <span id="usd-result"></span></p>
+            <p>Quetzales: <span id="gtq-result"></span></p>
+            <p>Euros: <span id="eur-result"></span></p>
+            <p>Pesos Mexicanos: <span id="mxn-result"></span></p>
+        </div>
+
+        <div class="media-container">
+            <div class="media">
+                <h3>
+                    <div style="text-align:center;padding:1em 0;">
+                        <h4><span style="color:rgb(255, 255, 255);">Hora actual en</span><br />Washington, Estados Unidos (USA)</h4>
+                        <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=small&timezone=America%2FNew_York" width="100%" height="90" frameborder="0" seamless></iframe>
+                    </div>
+                </h3>
+                <div class="flag-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/800px-Flag_of_the_United_States.svg.png">
+                </div>
+            </div>
+            <div class="media">
+                <h3>
+                    <div style="text-align:center;padding:1em 0;">
+                        <h4><span style="color:rgb(255, 255, 255);">Hora actual en</span><br />Guatemala City, Guatemala</h4>
+                        <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=small&timezone=America%2FGuatemala" width="100%" height="90" frameborder="0" seamless></iframe>
+                    </div>
+                </h3>
+                <div class="flag-container">
+                    <img src="https://media.istockphoto.com/id/528744491/es/foto/bandera-de-guatemala.jpg?s=612x612&w=0&k=20&c=DeErYKKfvr_4cFKRi3_rLblG51iYwaZ_RNoz5eWXJCA=">
+                </div>
+            </div>
+            <div class="media">
+                <h3>
+                    <div style="text-align:center;padding:1em 0;">
+                        <h4><span style="color:rgb(255, 255, 255);">Hora actual en</span><br />Europa Central</h4>
+                        <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=small&timezone=Europe%2FMadrid" width="100%" height="90" frameborder="0" seamless></iframe>
+                    </div>
+                </h3>
+                <div class="flag-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg">
+                </div>
+            </div>
+            <div class="media">
+                <h3>
+                    <div style="text-align:center;padding:1em 0;">
+                        <h4><span style="color:rgb(255, 255, 255);">Hora actual en</span><br />Mexico City, México</h4>
+                        <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=small&timezone=America%2FMexico_City" width="100%" height="90" frameborder="0" seamless></iframe>
+                    </div>
+                </h3>
+                <div class="flag-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Mexico.jpg">
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        alert('BIENVENIDOS');
+        const nombre = prompt('Ingrese su nombre');
+        document.getElementById('greeting').innerText = `Hola, ${nombre}! Bienvenido al Conversor de Moneda`;
+
+        
+        const exchangeRates = {
+            USD: { USD: 1, GTQ: 7.8, EUR: 0.85, MXN: 16.8 },
+            GTQ: { USD: 0.13, GTQ: 1, EUR: 0.11, MXN: 2.15 },
+            EUR: { USD: 1.18, GTQ: 9.18, EUR: 1, MXN: 19.8 },
+            MXN: { USD: 0.06, GTQ: 0.47, EUR: 0.05, MXN: 1 }
+        };
+
+        function convert() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const currency = document.getElementById('currency').value;
+
+            if (!isNaN(amount)) {
+                document.getElementById('usd-result').innerText = (amount * exchangeRates[currency].USD).toFixed(2);
+                document.getElementById('gtq-result').innerText = (amount * exchangeRates[currency].GTQ).toFixed(2);
+                document.getElementById('eur-result').innerText = (amount * exchangeRates[currency].EUR).toFixed(2);
+                document.getElementById('mxn-result').innerText = (amount * exchangeRates[currency].MXN).toFixed(2);
+            }
+        }
+    </script>
+    <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1557759964&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/instrumentaljazzmusicaambiental" title="Instrumental Jazz Música Ambiental" target="_blank" style="color: #cccccc; text-decoration: none;">Instrumental Jazz Música Ambiental</a> · <a href="https://soundcloud.com/instrumentaljazzmusicaambiental/sets/old-time-classic-instrumental" title="Old-Time Classic: Instrumental Retro Style Jazz with Piano, Trumpet and Double Bass, Smooth Instrumental Jazz" target="_blank" style="color: #cccccc; text-decoration: none;">Old-Time Classic: Instrumental Retro Style Jazz with Piano, Trumpet and Double Bass, Smooth Instrumental Jazz</a></div>
+</body>
+</html>
